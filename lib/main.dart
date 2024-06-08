@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:marshmallow/presentation/page/category_page.dart';
+import 'package:marshmallow/util/app_router.dart';
 
 void main() {
-  runApp(const Marshmallow());
+  runApp(const MyApp());
 }
-class Marshmallow extends StatelessWidget {
-  const Marshmallow({super.key});
+
+class MyApp extends StatelessWidget {
+
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: AppRouter.router,
       debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
       theme: ThemeData(
-        useMaterial3: true
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      home: const CategoryPage(),
     );
   }
 }

@@ -1,18 +1,49 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_glow/flutter_glow.dart';
+import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyButton extends StatelessWidget {
-  const MyButton({super.key, required this.title, required this.onClick});
+  const MyButton({super.key, required this.title, required this.icon,required this.onClick});
 
   final String title;
+  final IconData icon;
   final VoidCallback onClick;
 
   @override
   Widget build(BuildContext context) {
-    return GlowButton(
-      height: 40,
-        width: 120,
-        onPressed: onClick, color: Colors.red.shade300, child: Text(title));
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        splashColor: Colors.red,
+        borderRadius: BorderRadius.circular(20),
+        onTap: onClick,
+        child: Ink(
+          height: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                  colors: [
+                    CupertinoColors.activeBlue,
+                    Colors.red,
+                    Colors.pinkAccent
+                  ]
+              )
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(title,style: GoogleFonts.abel(
+                  color: Colors.white,
+                  fontSize: 20
+              ),),
+              const Gap(12),
+              Icon(icon,color: Colors.white,)
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
-
