@@ -6,6 +6,7 @@ class LoveRepositoryImpl extends LoveRepository {
   final ApiService apiService;
   LoveRepositoryImpl(this.apiService);
 
+
   @override
   Future<LoveRandom> getRandom(String boyName, String girlName) => apiService.getLoveRandom();
 }
