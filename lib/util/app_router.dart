@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:marshmallow/presentation/page/category_page.dart';
 import 'package:marshmallow/presentation/page/image_page.dart';
 import 'package:marshmallow/presentation/page/text_page.dart';
-
 import '../presentation/page/finger_page.dart';
 
 class AppRouter {

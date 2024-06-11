@@ -22,8 +22,8 @@ class _FingerPageState extends State<FingerPage> {
         body: Stack(
             children: [
               Image.asset("assets/images/background.png",fit: BoxFit.cover,width: double.infinity),
-              Padding(
-                  padding: const EdgeInsets.all(22.0),
+              const Padding(
+                  padding: EdgeInsets.all(22.0),
                   child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
