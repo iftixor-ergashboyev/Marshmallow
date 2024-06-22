@@ -9,5 +9,6 @@ class ReadAllHistoryUseCase extends IReadAllHistoryUseCase {
   final LocalRepository localRepository;
   ReadAllHistoryUseCase(this.localRepository);
   @override
+
   Future<List<Couple>> call() => localRepository.getAllHistory();
 }
