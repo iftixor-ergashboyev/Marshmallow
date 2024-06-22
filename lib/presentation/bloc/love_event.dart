@@ -6,6 +6,9 @@ sealed class LoveEvent extends Equatable {
   @override
   List<Object?> get props => [];
 }
+
+class GetLoveInitial extends LoveEvent {}
+
 class GetRandomLove extends LoveEvent {
   final String boyName;
   final String girlName;

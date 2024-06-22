@@ -19,20 +19,20 @@ class _ApiService implements ApiService {
   String? baseUrl;
 
   @override
-  Future<LoveRandom> getLoveRandom() async {
+  Future<List<int>> getLoveRandom() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<LoveRandom>(Options(
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<int>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/random',
+              '/random?min=0&max=100',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -41,7 +41,7 @@ class _ApiService implements ApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = LoveRandom.fromJson(_result.data!);
+    final value = _result.data!.cast<int>();
     return value;
   }
 

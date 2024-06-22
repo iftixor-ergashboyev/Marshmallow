@@ -6,7 +6,7 @@ class GetRandomLoveUseCase {
 
   const GetRandomLoveUseCase(this.loveRepository);
 
-  Future<LoveRandom> call(String boyName, String girlName) async {
+  Future<LoveRandom?> call(String boyName, String girlName) async {
     return await loveRepository.getRandom(boyName, girlName);
   }
 }
