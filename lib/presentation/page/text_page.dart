@@ -1,12 +1,13 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:marshmallow/presentation/bloc/love_bloc.dart';
+import 'package:marshmallow/domain/model/couple.dart';
+import 'package:marshmallow/presentation/bloc/history/history_bloc.dart';
+import 'package:marshmallow/presentation/bloc/text/love_event.dart';
 import 'package:marshmallow/presentation/widget/my_button.dart';
 
 class TextPage extends StatefulWidget {
@@ -44,9 +45,7 @@ class _TextPageState extends State<TextPage> {
           icon: const Icon(CupertinoIcons.back),
         ),
       ),
-      endDrawer: const Drawer(
-        backgroundColor: Colors.indigo,
-      ),
+      endDrawer: const HistoryDrawer(),
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -73,7 +72,7 @@ class _TextPageState extends State<TextPage> {
                               borderRadius: BorderRadius.circular(12),
                               child: Image.asset(
                                   "assets/img/img_2.png",
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fill,
                                   width: double.infinity,
                                   height: double.infinity
                               ),
@@ -106,12 +105,18 @@ class _TextPageState extends State<TextPage> {
                                         ));
                                   }
                                 },
-                                listener: (context, state) async {
+                                listener: (context, state) {
                                   if(state is LoveSuccess) {
                                     if(state.value >= 70) {
-                                      await Future.delayed(const Duration(seconds: 2));
-                                      _controller.play();
+                                      Future.delayed(const Duration(seconds: 2)).then((value) {
+                                        _controller.play();
+                                      });
                                     }
+                                    final now = DateTime.now();
+                                    final currentDate = DateTime(now.year,now.month,now.day);
+                                    final couple = Couple(id: null, boy: _boy.text, girl: _girl.text, loveValue: state.value, date: currentDate.toString().substring(0,11));
+                                    BlocProvider.of<HistoryBloc>(context).add(OnSaveHistory(couple));
+                                    BlocProvider.of<HistoryBloc>(context).add(OnGetHistory());
                                   }
                                 })
                           ]),
@@ -199,12 +204,14 @@ class _TextPageState extends State<TextPage> {
 
 
   _getRandom() {
-    if(_boy.text.isEmpty || _girl.text.isEmpty) {
+    final boyName = _boy.text;
+    final girlName = _girl.text;
+    if(boyName.isEmpty || girlName.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Enter Names"),backgroundColor: Colors.red)
       );
       return;
     }
-    BlocProvider.of<LoveBloc>(context).add(const GetRandomLove("", ""));
+    BlocProvider.of<LoveBloc>(context).add(GetRandomLove(boyName, girlName));
   }
 }

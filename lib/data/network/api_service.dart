@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
-import '../model/love_random.dart';
 part 'api_service.g.dart';
 
 @RestApi()

@@ -3,7 +3,7 @@ import 'package:floor/floor.dart';
 @entity
 class Couple {
   @primaryKey
-  final int id;
+  final int? id;
 
   final String boy;
   final String girl;
